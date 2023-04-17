@@ -6,25 +6,20 @@ export default function Auth() {
   const [email, setEmail] = useState('')
 
   const handleLogin = async (event) => {
+
     event.preventDefault()
 
-    const getURL = () => {
-      let url =
-        process.env.NEXT_PUBLIC_SITE_URL ?? 
-        process.env.NEXT_PUBLIC_VERCEL_URL ?? 
-        'http://localhost:3000/';
 
-      url = url.includes('http') ? url : `https://${url}`;
- 
-      url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
-      return url;
-    };
     
  
 
     setLoading(true)
     const { error } = await supabase.auth.signInWithOtp({ email,   options: {
-      redirectTo: getURL()
+      redirectTo: `${
+        process.env.REACT_APP_VERCEL_URL
+          ? 'https://' + process.env.REACT_APP_VERCEL_URL
+          : 'http://localhost:3000'
+      }`
     } })
 
     if (error) {
