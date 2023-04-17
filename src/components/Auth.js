@@ -10,7 +10,7 @@ export default function Auth() {
 
     setLoading(true)
     const { error } = await supabase.auth.signInWithOtp({ email, options: {
-      emailRedirectTo: 'https://graduation-showcase-2023.vercel.app/form',
+      emailRedirectTo: '/form',
     } })
 
     if (error) {
