@@ -14,12 +14,8 @@ export default function Auth() {
  
 
     setLoading(true)
-    const { error } = await supabase.auth.signInWithOtp({ email,   options: {
-      redirectTo: `${
-        process.env.REACT_APP_VERCEL_URL
-          ? 'https://' + process.env.REACT_APP_VERCEL_URL
-          : 'http://localhost:3000'
-      }`
+    const { error } = await supabase.auth.signInWithOtp({ email, options: {
+      redirectTo: 'https://graduation-showcase-2023.vercel.app/form'
     } })
 
     if (error) {
