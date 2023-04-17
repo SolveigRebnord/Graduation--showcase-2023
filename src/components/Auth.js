@@ -8,8 +8,24 @@ export default function Auth() {
   const handleLogin = async (event) => {
     event.preventDefault()
 
+    const getURL = () => {
+      let url =
+        process?.env?.NEXT_PUBLIC_SITE_URL ?? 
+        process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 
+        'http://localhost:3000/';
+
+      url = url.includes('http') ? url : `https://${url}`;
+ 
+      url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+      return url;
+    };
+    
+ 
+
     setLoading(true)
-    const { error } = await supabase.auth.signInWithOtp({ email })
+    const { error } = await supabase.auth.signInWithOtp({ email,   options: {
+      redirectTo: getURL()
+    } })
 
     if (error) {
       alert(error.error_description || error.message)
