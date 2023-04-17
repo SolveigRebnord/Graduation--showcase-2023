@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Auth from '../components/Auth';
 import MainForm from '../components/MainForm';
-import { supabase } from '../supabaseClient';
 import { Link } from 'react-router-dom';
 
 

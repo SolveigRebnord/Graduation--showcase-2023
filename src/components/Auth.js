@@ -1,9 +1,17 @@
 import { useState } from 'react'
-import { supabase } from '../supabaseClient'
+
+import { createClient } from '@supabase/supabase-js';
+const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL;
+const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY;
+
+
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
+  
 
   const handleLogin = async (event) => {
 
@@ -14,9 +22,7 @@ export default function Auth() {
  
 
     setLoading(true)
-    const { error } = await supabase.auth.signInWithOtp({ email, options: {
-      redirectTo: 'https://graduation-showcase-2023.vercel.app/form'
-    } })
+    const { error } = await supabase.auth.signInWithOtp({ email })
 
     if (error) {
       alert(error.error_description || error.message)
